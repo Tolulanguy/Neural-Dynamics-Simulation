@@ -3,9 +3,10 @@ import matplotlib.pyplot as plt
 num_neurons = 10 #number of neurons
 T = 10 #Duration of simulation
 spike_rate = 0.1 #spike/firing rate in spikes per second for each neuron
-num_steps = T * 1000 #converting duration to milliseconds (ms) as chosen unit
+num_steps = T * 1000 #converting duration to milliseconds (ms) as the chosen unit
 spike_train_data = np.zeros((num_neurons, num_steps))
-#we initialize an array for storing the spike train data for each neuron
+
+#initialize an array for storing the spike train data for each neuron
 for neuron in range(num_neurons): #iterating for each neuron until completed
     for step in range(num_steps):
         #iterate for each time_steps to generate spikes within each neuron we are iterating.
@@ -23,6 +24,7 @@ for step in range(num_steps): #simulate dynamics over time
         if (membrane_potential[neuron] >= threshold): #checking if membrane potential hits threshold so that output spike can be generated
             print(f"Neuron {neuron} spiked at time {step} ms") #generating output spike
             membrane_potential[neuron] = 0.0
+
 #Plotting a graph to show analysis of spike rate of each neuron
 spike_rates = np.sum(spike_train_data, axis=1)/T #calculating spike rate for each neuron
 #histogram graph
@@ -48,7 +50,7 @@ plt.show()
 #Correlation analysis to assess potential functional relationships between neurons based on correlation between their spike rates.
 import pandas as pd
 import seaborn as sns
-spike_rates_df = pd.DataFrame(spike_rates) #this line converts numpy array to Panda DataFrame because corr matrix is not compatible with numpy array except panda dataframe
+spike_rates_df = pd.DataFrame(spike_rates) #converts numpy array to Panda DataFrame because corr matrix is not compatible with numpy array except panda dataframe
 correlation_matrix = spike_rates_df.corr() #compute correlation matrix. adding _df converts the numpy array to pandas dataframe
 #plotting heatmap of the correlation matrix
 plt.figure(figsize=(8, 6))
